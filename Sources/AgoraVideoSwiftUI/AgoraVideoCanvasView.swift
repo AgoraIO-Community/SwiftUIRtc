@@ -38,6 +38,34 @@ public struct AgoraVideoCanvasView: UIViewRepresentable {
     public var setupMode: AgoraVideoViewSetupMode = .replace
 
     /**
+     A UIViewRepresentable wrapper for an AgoraRtcVideoCanvas, which can be used to display a remote or local video stream in a SwiftUI view.
+
+     - Parameters:
+        - agoraKit: An instance of the AgoraRtcEngineKit, which manages the video stream.
+        - uid: The user ID for the video stream.
+        - renderMode: The render mode for the video stream, which determines how the video is scaled and displayed.
+        - cropArea: The portion of the video stream to display, specified as a CGRect with values between 0 and 1.
+        - setupMode: The mode for setting up the video view, which determines whether to replace or merge with existing views.
+
+     - Returns: An AgoraVideoCanvasView instance, which can be added to a SwiftUI view hierarchy.
+    */
+    public init(
+        agoraKit: AgoraRtcEngineKit, uid: UInt,
+        renderMode: AgoraVideoRenderMode = .hidden,
+        cropArea: CGRect = .zero,
+        setupMode: AgoraVideoViewSetupMode = .replace
+    ) {
+        self.agoraKit = agoraKit
+        self.uid = uid
+        self.renderMode = renderMode
+        self.cropArea = cropArea
+        self.setupMode = setupMode
+    }
+
+    fileprivate init(uid: UInt) {
+        self.uid = uid
+    }
+    /**
      Creates and configures a `UIView` for the view. This UIView will be the view the video is rendered onto.
 
      - Parameter context: The `UIViewRepresentable` context.
