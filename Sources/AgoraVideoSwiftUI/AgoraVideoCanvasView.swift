@@ -23,19 +23,19 @@ public struct AgoraVideoCanvasView: UIViewRepresentable {
     @StateObject var canvas = AgoraRtcVideoCanvas()
 
     /// A weak reference to the `AgoraRtcEngineKit` object for the session.
-    weak var agoraKit: AgoraRtcEngineKit?
+    public weak var agoraKit: AgoraRtcEngineKit?
 
     /// The user ID of the remote user whose video to display, or `0` to display the local user's video.
-    let uid: UInt
+    public let uid: UInt
 
     /// The render mode for the view.
-    var renderMode: AgoraVideoRenderMode = .hidden
+    public var renderMode: AgoraVideoRenderMode = .hidden
 
     /// The crop area for the view.
-    var cropArea: CGRect = .zero
+    public var cropArea: CGRect = .zero
 
     /// The setup mode for the view.
-    var setupMode: AgoraVideoViewSetupMode = .replace
+    public var setupMode: AgoraVideoViewSetupMode = .replace
 
     /**
      Creates and configures a `UIView` for the view. This UIView will be the view the video is rendered onto.

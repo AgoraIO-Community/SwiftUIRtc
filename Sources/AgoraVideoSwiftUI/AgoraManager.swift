@@ -15,13 +15,13 @@ Use AgoraManager to set up and manage Agora RTC sessions, manage the client's ro
 */
 open class AgoraManager: NSObject, ObservableObject, AgoraRtcEngineDelegate {
     /// The Agora App ID for the session.
-    var appId: String
+    public let appId: String
     /// The client's role in the session.
-    var role: AgoraClientRole = .audience {
+    public var role: AgoraClientRole = .audience {
         didSet { engine.setClientRole(role) }
     }
     /// The Agora RTC Engine Kit for the session.
-    var engine: AgoraRtcEngineKit {
+    public var engine: AgoraRtcEngineKit {
         let eng = AgoraRtcEngineKit.sharedEngine(withAppId: appId, delegate: self)
         eng.enableVideo()
         eng.setClientRole(role)
@@ -35,7 +35,7 @@ open class AgoraManager: NSObject, ObservableObject, AgoraRtcEngineDelegate {
         - appId: The Agora App ID for the session.
         - role: The client's role in the session. The default value is `.audience`.
      */
-    init(appId: String, role: AgoraClientRole = .audience) {
+    public init(appId: String, role: AgoraClientRole = .audience) {
         self.appId = appId
         self.role = role
     }
@@ -45,7 +45,7 @@ open class AgoraManager: NSObject, ObservableObject, AgoraRtcEngineDelegate {
 
      - Parameter leaveChannelBlock: An optional closure that will be called when the client leaves the channel. The closure takes an `AgoraChannelStats` object as its parameter.
      */
-    func leaveChannel(leaveChannelBlock: ((AgoraChannelStats) -> Void)? = nil) {
+    open func leaveChannel(leaveChannelBlock: ((AgoraChannelStats) -> Void)? = nil) {
         self.engine.leaveChannel(leaveChannelBlock)
         self.engine.stopPreview()
         AgoraRtcEngineKit.destroy()
