@@ -7,7 +7,7 @@ AgoraVideoSwiftUI is a package for building video call apps using the Agora RTC 
 AgoraVideoSwiftUI can be installed using Swift Package Manager in Xcode. Simply add the package to your project by navigating to File > Swift Packages > Add Package Dependency and entering the repository URL:
 
 ```
-
+https://github.com/AgoraIO-Community/AgoraVideoSwiftUI.git
 ```
 
 
