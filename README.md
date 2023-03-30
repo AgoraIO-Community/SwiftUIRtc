@@ -20,7 +20,7 @@ import AgoraVideoSwiftUI
 import AgoraRtcKit
 
 struct AgoraGettingStartedView: View {
-    @ObservedObject var agoraManager = GettingStartedManager(appId: <#AppId#>, role: .broadcaster)
+    @ObservedObject var agoraManager = AgoraManager(appId: <#AppId#>, role: .broadcaster)
     var channelId: String = "test"
     var body: some View {
         ScrollView {
@@ -39,27 +39,6 @@ struct AgoraGettingStartedView: View {
         }
     }
 }
-
-// To show and hide all the users in the channel, we need to make a small subclass of AgoraManager.
-class GettingStartedManager: AgoraManager {
-    @Published var allUsers: Set<UInt> = []
-    override func leaveChannel(leaveChannelBlock: ((AgoraChannelStats) -> Void)? = nil) {
-        allUsers.removeAll()
-        super.leaveChannel(leaveChannelBlock: leaveChannelBlock)
-    }
-    func rtcEngine(_ engine: AgoraRtcEngineKit, didJoinChannel channel: String, withUid uid: UInt, elapsed: Int) {
-        if self.role == .broadcaster {
-            self.allUsers.insert(0)
-        }
-    }
-    func rtcEngine(_ engine: AgoraRtcEngineKit, didJoinedOfUid uid: UInt, elapsed: Int) {
-        self.allUsers.insert(uid)
-    }
-    func rtcEngine(_ engine: AgoraRtcEngineKit, didOfflineOfUid uid: UInt, reason: AgoraUserOfflineReason) {
-        self.allUsers.remove(uid)
-    }
-}
-
 ```
 
 ## Contributing
