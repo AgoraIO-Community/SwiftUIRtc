@@ -48,13 +48,25 @@ open class AgoraManager: NSObject, ObservableObject, AgoraRtcEngineDelegate {
     }
 
     /**
+     * Joins a channel, starting the connection to an RTC session.
+     * - Parameters:
+     *   - channel: Name of the channel to join.
+     *   - token: Token to join the channel, this can be nil for an weak security testing session.
+     *   - uid: User ID of the local user. This can be 0 to allow the engine to automatically assign an ID.
+     *   - info: Info is currently unused by RTC, it is reserved for future use.
+     */
+    open func joinChannel(_ channel: String, token: String? = nil, uid: UInt = 0, info: String? = nil) {
+        self.engine.joinChannel(byToken: token, channelId: channel, info: info, uid: uid)
+    }
+
+    /**
      * Leaves the channel and stops the preview for the session.
      *
      * - Parameter leaveChannelBlock: An optional closure that will be called when the client leaves the channel.
      *      The closure takes an * `AgoraChannelStats` object as its parameter.
      *
      *
-     * This method also empties all entries in ``allUsers``
+     * This method also empties all entries in ``allUsers``,
      */
     open func leaveChannel(leaveChannelBlock: ((AgoraChannelStats) -> Void)? = nil) {
         self.engine.leaveChannel(leaveChannelBlock)
@@ -64,14 +76,14 @@ open class AgoraManager: NSObject, ObservableObject, AgoraRtcEngineDelegate {
     }
 
     /**
-     * Tells the delegate that the user has successfully joined the channel.
+     * The delegate is telling us that the local user has successfully joined the channel.
      * - Parameters:
      *    - engine: The Agora RTC engine kit object.
      *    - channel: The channel name.
      *    - uid: The ID of the user joining the channel.
      *    - elapsed: The time elapsed (ms) from the user calling `joinChannel` until this method is called.
      *
-     * If the client's role is `.broadcaster`, this method also adds the broadcaster to the `allUsers` set.
+     * If the client's role is `.broadcaster`, this method also adds the broadcaster's userId (``localUserId``) to the ``allUsers`` set.
      */
     open func rtcEngine(_ engine: AgoraRtcEngineKit, didJoinChannel channel: String, withUid uid: UInt, elapsed: Int) {
         self.localUserId = uid
@@ -81,7 +93,7 @@ open class AgoraManager: NSObject, ObservableObject, AgoraRtcEngineDelegate {
     }
 
     /**
-     * Tells the delegate that a remote user has joined the channel.
+     * The delegate is telling us that a remote user has joined the channel.
      *
      * - Parameters:
      *    - engine: The Agora RTC engine kit object.
@@ -94,7 +106,7 @@ open class AgoraManager: NSObject, ObservableObject, AgoraRtcEngineDelegate {
         self.allUsers.insert(uid)
     }
     /**
-     * Tells the delegate that a remote user has left the channel.
+     * The delegate is telling us that a remote user has left the channel.
      *
      * - Parameters:
      *     - engine: The Agora RTC engine kit object.

@@ -51,7 +51,7 @@ public struct AgoraVideoCanvasView: VIEW_REP {
     public var setupMode: AgoraVideoViewSetupMode = .replace
 
     /**
-     * A UIViewRepresentable wrapper for an AgoraRtcVideoCanvas, which can be used to display a remote or local video stream in a SwiftUI view.
+     * Create a new AgoraRtcVideoCanvas, for displaying a remote or local video stream in a SwiftUI view.
      *
      * - Parameters:
      *    - manager: An instance of an object that conforms to ``CanvasViewHelper``, such as ``AgoraManager``.
