@@ -33,9 +33,7 @@ jobs:
           $(xcrun --find docc) process-archive \
             transform-for-static-hosting /tmp/docbuild/Build/Products/Debug-iphoneos/SwiftUIRtc.doccarchive \
             --output-path docs \
-            --hosting-base-path SwiftUIRtc \
-            --source-service github \
-            --source-service-base-url https://github.com/AgoraIO-Community/SwiftUIRtc/tree/main;
+            --hosting-base-path SwiftUIRtc;
           echo "<script>window.location.href += \"/documentation/swiftuirtc\"</script>" > docs/index.html;
 
       - name: Upload artifact 📜
