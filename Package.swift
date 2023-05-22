@@ -4,21 +4,23 @@
 import PackageDescription
 
 let package = Package(
-    name: "AgoraVideoSwiftUI",
-    platforms: [.iOS(.v13)],
+    name: "SwiftUIRtc",
+    platforms: [.iOS(.v14)], // .macOS(.v12)],
     products: [
-        .library(name: "AgoraVideoSwiftUI", targets: ["AgoraVideoSwiftUI"]),
+        .library(name: "SwiftUIRtc", targets: ["SwiftUIRtc"]),
     ],
     dependencies: [
-         .package(url: "https://github.com/AgoraIO/AgoraRtcEngine_iOS", from: "4.1.1"),
+        .package(url: "https://github.com/AgoraIO/AgoraRtcEngine_iOS", from: "4.1.0"),
     ],
     targets: [
         .target(
-            name: "AgoraVideoSwiftUI",
-            dependencies: [.product(name: "RtcBasic", package: "AgoraRtcEngine_iOS")]
+            name: "SwiftUIRtc",
+            dependencies: [
+                .product(name: "RtcBasic", package: "AgoraRtcEngine_iOS"),
+            ]
         ),
         .testTarget(
-            name: "AgoraVideoSwiftUITests",
-            dependencies: ["AgoraVideoSwiftUI"]),
+            name: "SwiftUIRtcTests",
+            dependencies: ["SwiftUIRtc"]),
     ]
 )
