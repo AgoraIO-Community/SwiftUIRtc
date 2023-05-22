@@ -27,12 +27,12 @@ jobs:
         uses: actions/checkout@v3
       - name: Build All DocC 🛠
         run: |
-          xcodebuild docbuild -scheme AgoraVideoSwiftUI -derivedDataPath /tmp/docbuild -destination 'generic/platform=iOS';
+          xcodebuild docbuild -scheme SwiftUIRtc -derivedDataPath /tmp/docbuild -destination 'generic/platform=iOS';
           $(xcrun --find docc) process-archive \
-            transform-for-static-hosting /tmp/docbuild/Build/Products/Debug-iphoneos/AgoraVideoSwiftUI.doccarchive \
+            transform-for-static-hosting /tmp/docbuild/Build/Products/Debug-iphoneos/SwiftUIRtc.doccarchive \
             --output-path docs \
-            --hosting-base-path AgoraVideoSwiftUI;
-          echo "<script>window.location.href += \"/documentation/agoravideoswiftui\"</script>" > docs/index.html;
+            --hosting-base-path SwiftUIRtc;
+          echo "<script>window.location.href += \"/documentation/swiftuirtc\"</script>" > docs/index.html;
 
       - name: Upload artifact 📜
         uses: actions/upload-pages-artifact@v1
