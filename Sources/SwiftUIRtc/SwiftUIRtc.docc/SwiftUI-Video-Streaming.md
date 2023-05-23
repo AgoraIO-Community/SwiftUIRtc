@@ -108,7 +108,7 @@ extension CallQualityManager {
 And if you want to display those call qualities, a simple change to ScrollingVideoCallView (above), adds overlay to each ``AgoraVideoCanvasView``:
 
 ```swift
-AgoraVideoCanvasView(agoraKit: agoraManager.engine, uid: uid)
+AgoraVideoCanvasView(manager: agoraManager, uid: uid)
     .aspectRatio(contentMode: .fit).cornerRadius(10)
     .overlay(alignment: .topLeading) {
         Text(agoraManager.callQualities[uid] ?? "no data").padding()
