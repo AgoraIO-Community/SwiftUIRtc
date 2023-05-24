@@ -19,10 +19,15 @@ import AgoraRtcKit
 /// so it can be a `@StateObject` for ``AgoraVideoCanvasView``.
 extension AgoraRtcVideoCanvas: ObservableObject {}
 
+/// This protocol lets ``AgoraVideoCanvasView`` fetch the information it needs,
+/// while avoiding a strong dependency on ``AgoraManager``.
 public protocol CanvasViewHelper: AnyObject {
+    /// Instance of the Agora RTC Engine
     var engine: AgoraRtcEngineKit { get }
+    /// Id of the local user in the channel.
     var localUserId: UInt { get }
 }
+
 extension AgoraManager: CanvasViewHelper {}
 
 /**
@@ -35,8 +40,10 @@ public struct AgoraVideoCanvasView: VIEW_REP {
     /// The `AgoraRtcVideoCanvas` object that represents the video canvas for the view.
     @StateObject var canvas = AgoraRtcVideoCanvas()
 
-    /// Reference to a protocol ``CanvasViewHelper`` that helps with fetching the engine instance, as well as the local user's ID.
-    /// ``AgoraManager`` conforms to this protocol.
+    /**
+     * Reference to a protocol ``CanvasViewHelper`` that helps with fetching the engine instance,
+     * as well as the local user's ID. ``AgoraManager`` conforms to this protocol.
+     */
     public weak var manager: CanvasViewHelper?
     /// The user ID of the remote user whose video to display, or `0` to display the local user's video.
     public let uid: UInt

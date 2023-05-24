@@ -105,6 +105,7 @@ open class AgoraManager: NSObject, ObservableObject, AgoraRtcEngineDelegate {
     open func rtcEngine(_ engine: AgoraRtcEngineKit, didJoinedOfUid uid: UInt, elapsed: Int) {
         self.allUsers.insert(uid)
     }
+
     /**
      * The delegate is telling us that a remote user has left the channel.
      *
