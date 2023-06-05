@@ -66,6 +66,8 @@ struct ScrollingVideoCallView: View {
 
 When displayed in a ScrollView like above, the different video feeds will just appear in a scrolling list view automatically, scaling to however many users join the channel.
 
+@Video(source: scrolling_videos_view.mov, poster: scrolling_videos_view.gif)
+
 As this library matures, more example usage will be linked from here.
 
 ## Extending SwiftUIRtc
@@ -114,6 +116,8 @@ AgoraVideoCanvasView(manager: agoraManager, uid: uid)
         Text(agoraManager.callQualities[uid] ?? "no data").padding()
     }
 ```
+
+@Image(source: scrolling_quality_view.jpeg)
 
 ## Conclusion
 
