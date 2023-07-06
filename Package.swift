@@ -10,7 +10,7 @@ let package = Package(
         .library(name: "SwiftUIRtc", targets: ["SwiftUIRtc"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/AgoraIO/AgoraRtcEngine_iOS", from: "4.1.0"),
+        .package(url: "https://github.com/AgoraIO/AgoraRtcEngine_iOS", from: "4.0.0"),
     ],
     targets: [
         .target(
