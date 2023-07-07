@@ -7,20 +7,21 @@ let package = Package(
     name: "SwiftUIRtc",
     platforms: [.iOS(.v14)], // .macOS(.v12)],
     products: [
-        .library(name: "SwiftUIRtc", targets: ["SwiftUIRtc"]),
+        .library(name: "SwiftUIRtc", targets: ["SwiftUIRtc"])
     ],
     dependencies: [
-        .package(url: "https://github.com/AgoraIO/AgoraRtcEngine_iOS", from: "4.0.0"),
+        .package(url: "https://github.com/AgoraIO/AgoraRtcEngine_iOS", from: "4.0.0")
     ],
     targets: [
         .target(
             name: "SwiftUIRtc",
             dependencies: [
-                .product(name: "RtcBasic", package: "AgoraRtcEngine_iOS"),
+                .product(name: "RtcBasic", package: "AgoraRtcEngine_iOS")
             ]
         ),
         .testTarget(
             name: "SwiftUIRtcTests",
-            dependencies: ["SwiftUIRtc"]),
+            dependencies: ["SwiftUIRtc"]
+        )
     ]
 )

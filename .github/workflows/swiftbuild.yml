@@ -1,0 +1,25 @@
+name: 🏗️ Build Package 🏗️
+
+on:
+  push:
+    branches:
+      - "main"
+  pull_request:
+    branches:
+      - "*"
+
+jobs:
+  swiftlint:
+    runs-on: macos-latest
+    steps:
+    - name: Checkout 🛎
+      uses: actions/checkout@v3 
+
+    - name: Resolve 📦
+      run: swift package resolve
+
+    - name: Build 🏗️
+      run: xcodebuild clean build -scheme SwiftUIRtc -destination generic/platform=iOS | xcpretty
+
+    - name: Lint 🧹
+      run: swiftlint --strict

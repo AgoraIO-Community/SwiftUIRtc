@@ -1,14 +1,28 @@
 # SwiftUIRtc
 
+
 SwiftUIRtc is a package for building video call apps using the Agora RTC SDK and SwiftUI. It provides a set of SwiftUI views and classes that simplify setting up and managing Agora RTC sessions for video calls.
 
 This is not an official product of Agora, it is simply an open source project for helping developers use the RTC engine is new ways, such as with SwiftUI. If you have any issues with the classes in this repository, please open an issue or a PR. Agora's support team will likely not know about this package.
+
+<p align="center">
+    <img style="max-height:256px" src="Sources/SwiftUIRtc/SwiftUIRtc.docc/Resources/scrolling_videos_view.gif"/>
+</p>
+
+See the [SwiftUIRtc Documentation](https://agoraio-community.github.io/SwiftUIRtc/).
+
+
+## Requirements
+
+- iOS 14.0+
+- Swift 5.7+
+- [AgoraRtcKit Account](https://console.agora.io)
 
 ## Installation
 
 SwiftUIRtc can be installed using Swift Package Manager in Xcode. Simply add the package to your project by navigating to File > Swift Packages > Add Package Dependency and entering the repository URL:
 
-```
+```text
 https://github.com/AgoraIO-Community/SwiftUIRtc.git
 ```
 
@@ -49,3 +63,7 @@ Contributions to SwiftUIRtc are welcome! If you encounter any issues or have fea
 ## License
 
 SwiftUIRtc is available under the MIT license. See the [LICENSE](LICENSE) file for more information.
+
+## Acknowledgments
+
+SwiftUIRtc relies on the [AgoraRtcKit](https://github.com/AgoraIO/AgoraRtcEngine_iOS) framework developed by Agora.io for real-time communication functionality.

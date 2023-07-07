@@ -7,54 +7,54 @@
 
 import SwiftUI
 #if os(iOS)
-public typealias VIEW_CLASS = UIView
-public typealias VIEW_REP = UIViewRepresentable
+public typealias ViewClassAlias = UIView
+public typealias ViewRepAlias = UIViewRepresentable
 #elseif os(macOS)
-public typealias VIEW_CLASS = NSView
-public typealias VIEW_REP = NSViewRepresentable
+public typealias ViewClassAlias = NSView
+public typealias ViewRepAlias = NSViewRepresentable
 #endif
 import AgoraRtcKit
 
-/// AgoraRtcVideoCanvas must have the `ObservableObject` protocol applied,
+/// 🎥 AgoraRtcVideoCanvas must have the `ObservableObject` protocol applied,
 /// so it can be a `@StateObject` for ``AgoraVideoCanvasView``.
 extension AgoraRtcVideoCanvas: ObservableObject {}
 
-/// This protocol lets ``AgoraVideoCanvasView`` fetch the information it needs,
+/// 🖼️ This protocol lets ``AgoraVideoCanvasView`` fetch the information it needs,
 /// while avoiding a strong dependency on ``AgoraManager``.
 public protocol CanvasViewHelper: AnyObject {
-    /// Instance of the Agora RTC Engine
-    var agoraEngine: AgoraRtcEngineKit { get }
-    /// Id of the local user in the channel.
+    /// 📞 Instance of the Agora RTC Engine
+    var agoraEngine: AgoraRtcEngineKit! { get }
+    /// 🆔 Id of the local user in the channel.
     var localUserId: UInt { get }
 }
 
 /// Add the ``CanvasViewHelper`` protocol to ``AgoraManager``.
 extension AgoraManager: CanvasViewHelper {}
 
-/// AgoraVideoCanvasView is a UIViewRepresentable struct that provides a view for displaying remote or local video in an Agora RTC session.
+/// 🎞️ AgoraVideoCanvasView is a SwiftUI view that displays remote or local video in an Agora RTC session.
 ///
 /// Use AgoraVideoCanvasView to create a view that displays the video stream from a remote user or the local user's camera in an Agora RTC session.
 /// You can specify the render mode, crop area, and setup mode for the view.
-public struct AgoraVideoCanvasView: VIEW_REP {
-    /// The `AgoraRtcVideoCanvas` object that represents the video canvas for the view.
-    @StateObject var canvas = AgoraRtcVideoCanvas()
+public struct AgoraVideoCanvasView: ViewRepAlias {
+    /// 🎥 The `AgoraRtcVideoCanvas` object that represents the video canvas for the view.
+    @StateObject private var canvas = AgoraRtcVideoCanvas()
 
-    /// Reference to a protocol ``CanvasViewHelper`` that helps with fetching the engine instance, as well as the local user's ID.
+    /// 🔄 Reference to a protocol ``CanvasViewHelper`` that helps with fetching the engine instance, as well as the local user's ID.
     /// ``AgoraManager`` conforms to this protocol.
     public weak var manager: CanvasViewHelper?
-    /// The user ID of the remote user whose video to display, or `0` to display the local user's video.
+    /// 🆔 The user ID of the remote user whose video to display, or `0` to display the local user's video.
     public let uid: UInt
 
-    /// The render mode for the view.
+    /// 🎨 The render mode for the view.
     public var renderMode: AgoraVideoRenderMode = .hidden
 
-    /// The crop area for the view.
+    /// 🖼️ The crop area for the view.
     public var cropArea: CGRect = .zero
 
-    /// The setup mode for the view.
+    /// 🔧 The setup mode for the view.
     public var setupMode: AgoraVideoViewSetupMode = .replace
 
-    /// Create a new AgoraRtcVideoCanvas, for displaying a remote or local video stream in a SwiftUI view.
+    /// Create a new AgoraRtcVideoCanvas for displaying a remote or local video stream in a SwiftUI view.
     ///
     /// - Parameters:
     ///    - manager: An instance of an object that conforms to ``CanvasViewHelper``, such as ``AgoraManager``.
@@ -81,12 +81,12 @@ public struct AgoraVideoCanvasView: VIEW_REP {
         self.uid = uid
     }
     #if os(macOS)
-    /// Creates and configures a `NSView` for the view. This UIView will be the view the video is rendered onto.
+    /// Creates and configures an `NSView` for the view. This NSView will be the view the video is rendered onto.
     ///
     /// - Parameter context: The `NSViewRepresentable` context.
     ///
-    /// - Returns: A `NSView` for displaying the video stream.
-    public func makeNSView(context: Context) -> VIEW_CLASS {
+    /// - Returns: An `NSView` for displaying the video stream.
+    public func makeNSView(context: Context) -> ViewClassAlias {
         setupCanvasView()
     }
     #elseif os(iOS)
@@ -95,20 +95,20 @@ public struct AgoraVideoCanvasView: VIEW_REP {
     /// - Parameter context: The `UIViewRepresentable` context.
     ///
     /// - Returns: A `UIView` for displaying the video stream.
-    public func makeUIView(context: Context) -> VIEW_CLASS {
+    public func makeUIView(context: Context) -> ViewClassAlias {
         setupCanvasView()
     }
     #endif
-    func setupCanvasView() -> VIEW_CLASS {
+    private func setupCanvasView() -> ViewClassAlias {
         // Create and return the remote video view
-        let canvasView = VIEW_CLASS()
+        let canvasView = ViewClassAlias()
         canvas.view = canvasView
         canvas.renderMode = renderMode
         canvas.cropArea = cropArea
         canvas.setupMode = setupMode
         canvas.uid = uid
         canvasView.isHidden = false
-        if self.uid == self.manager?.localUserId {
+        if uid == manager?.localUserId {
             // Start the local video preview
             manager?.agoraEngine.startPreview()
             manager?.agoraEngine.setupLocalVideo(canvas)
@@ -119,28 +119,33 @@ public struct AgoraVideoCanvasView: VIEW_REP {
     }
 
     /// Updates the `AgoraRtcVideoCanvas` object for the view with new values, if necessary.
-    func updateCanvasValues() {
-        if canvas.renderMode == renderMode, canvas.cropArea == cropArea, canvas.setupMode == setupMode {
-            return
-        }
+    private func updateCanvasValues() {
+        guard canvas.renderMode != renderMode ||
+                canvas.cropArea != cropArea ||
+                canvas.setupMode != setupMode ||
+                canvas.uid != uid
+        else { return }
         // Update the canvas properties if needed
-        if canvas.renderMode != renderMode { canvas.renderMode = renderMode }
-        if canvas.cropArea != cropArea { canvas.cropArea = cropArea }
-        if canvas.setupMode != setupMode { canvas.setupMode = setupMode }
+        canvas.renderMode = renderMode
+        canvas.cropArea = cropArea
+        canvas.setupMode = setupMode
 
-        if self.canvas.uid == self.uid { return }
-        self.canvas.uid = self.uid
-        if self.uid == self.manager?.localUserId { manager?.agoraEngine.setupLocalVideo(canvas)
-        } else { self.manager?.agoraEngine.setupRemoteVideo(canvas) }
+        if canvas.uid == uid { return }
+        canvas.uid = uid
+        if uid == manager?.localUserId {
+            manager?.agoraEngine.setupLocalVideo(canvas)
+        } else {
+            manager?.agoraEngine.setupRemoteVideo(canvas)
+        }
     }
 
     /// Updates the Canvas view.
     #if os(iOS)
-    public func updateUIView(_ uiView: VIEW_CLASS, context: Context) {
+    public func updateUIView(_ uiView: ViewClassAlias, context: Context) {
         self.updateCanvasValues()
     }
     #elseif os(macOS)
-    public func updateNSView(_ nsView: VIEW_CLASS, context: Context) {
+    public func updateNSView(_ nsView: ViewClassAlias, context: Context) {
         self.updateCanvasValues()
     }
     #endif
