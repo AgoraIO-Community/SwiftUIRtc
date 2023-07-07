@@ -1,5 +1,10 @@
 # SwiftUIRtc
 
+<p align="center">
+    <a href="https://agoraio-community.github.io/SwiftUIRtc/"><img src="https://github.com/AgoraIO-Community/SwiftUIRtc/actions/workflows/deploy_docs.yml/badge.svg"/></a>
+    <img src="https://github.com/AgoraIO-Community/SwiftUIRtc/actions/workflows/swiftbuild.yml/badge.svg"/>
+</p>
+
 
 SwiftUIRtc is a package for building video call apps using the Agora RTC SDK and SwiftUI. It provides a set of SwiftUI views and classes that simplify setting up and managing Agora RTC sessions for video calls.
 
