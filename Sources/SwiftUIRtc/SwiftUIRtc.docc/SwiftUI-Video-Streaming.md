@@ -25,7 +25,7 @@ Although the SwiftUIRtc package is relatively light by design, its limited class
 Join and leave channel methods:
 
 - ``AgoraManager/joinChannel(_:token:uid:info:)``
-- ``AgoraManager/leaveChannel(leaveChannelBlock:)``
+- ``AgoraManager/leaveChannel(leaveChannelBlock:destroyEngine:)``
 
 Implemented delegate methods:
 
