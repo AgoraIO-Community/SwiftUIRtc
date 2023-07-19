@@ -21,8 +21,6 @@ jobs:
         LIB_VERSION: ${{ github.ref_name }}
       run: |
         set -eo pipefail
-        echo ${{github.ref_name}}
-        echo ${{github.base_ref}}
         echo $LIB_VERSION
         pod trunk push SwiftUIRtc_iOS.podspec --allow-warnings --skip-import-validation;
         pod trunk push SwiftUIRtc_macOS.podspec --allow-warnings --skip-import-validation;
