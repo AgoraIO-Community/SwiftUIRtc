@@ -1,0 +1,28 @@
+name: deploy_to_cocoapods
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  build:
+
+    runs-on: macOS-latest
+
+    steps:
+    - name: Checkout 🛎️
+      uses: actions/checkout@v3
+    - name: Install CocoaPods 🪖
+      run: gem install cocoapods
+    - name: Deploy to CocoaPods 🚢
+      env:
+        COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}
+        LIB_VERSION: ${{ github.ref_name }}
+      run: |
+        set -eo pipefail
+        echo ${{github.ref_name}}
+        echo ${{github.base_ref}}
+        echo $LIB_VERSION
+        pod trunk push SwiftUIRtc_iOS.podspec --allow-warnings --skip-import-validation;
+        pod trunk push SwiftUIRtc_macOS.podspec --allow-warnings --skip-import-validation;
