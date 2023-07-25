@@ -46,16 +46,16 @@ struct AgoraGettingStartedView: View {
         ScrollView {
             VStack {
                 ForEach(Array(agoraManager.allUsers), id: \.self) { uid in
-                    AgoraVideoCanvasView(manager: agoraManager, uid: uid)
+                    AgoraVideoCanvasView(manager: agoraManager, canvasId: .userId(uid))
                         .aspectRatio(contentMode: .fit).cornerRadius(10)
                 }
             }.padding(20)
         }.onAppear {
-            agoraManager.engine.joinChannel(
+            agoraManager.agoraEngine.joinChannel(
                 byToken: <#Agora Temp Token#>, channelId: channelId, info: nil, uid: 0
             )
         }.onDisappear {
-            agoraManager.engine.leaveChannel()
+            agoraManager.agoraEngine.leaveChannel()
         }
     }
 }
