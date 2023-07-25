@@ -51,11 +51,11 @@ struct AgoraGettingStartedView: View {
                 }
             }.padding(20)
         }.onAppear {
-            agoraManager.engine.joinChannel(
+            agoraManager.agoraEngine.joinChannel(
                 byToken: <#Agora Temp Token#>, channelId: channelId, info: nil, uid: 0
             )
         }.onDisappear {
-            agoraManager.engine.leaveChannel()
+            agoraManager.agoraEngine.leaveChannel()
         }
     }
 }
