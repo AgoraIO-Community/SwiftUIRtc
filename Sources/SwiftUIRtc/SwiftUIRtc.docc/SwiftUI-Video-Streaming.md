@@ -51,7 +51,7 @@ struct ScrollingVideoCallView: View {
         ScrollView {
             VStack {
                 ForEach(Array(agoraManager.allUsers), id: \.self) { uid in
-                    AgoraVideoCanvasView(manager: agoraManager, uid: uid)
+                    AgoraVideoCanvasView(manager: agoraManager, canvasId: .userId(uid))
                         .aspectRatio(contentMode: .fit).cornerRadius(10)
                 }
             }.padding(20)
@@ -110,7 +110,7 @@ extension CallQualityManager {
 To display those call quality data, a simple change to ScrollingVideoCallView (above) adds an overlay to each ``AgoraVideoCanvasView``:
 
 ```swift
-AgoraVideoCanvasView(manager: agoraManager, uid: uid)
+AgoraVideoCanvasView(manager: agoraManager, canvasId: .userId(uid))
     .aspectRatio(contentMode: .fit).cornerRadius(10)
     .overlay(alignment: .topLeading) {
         Text(agoraManager.callQualities[uid] ?? "no data").padding()

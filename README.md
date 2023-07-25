@@ -46,7 +46,7 @@ struct AgoraGettingStartedView: View {
         ScrollView {
             VStack {
                 ForEach(Array(agoraManager.allUsers), id: \.self) { uid in
-                    AgoraVideoCanvasView(manager: agoraManager, uid: uid)
+                    AgoraVideoCanvasView(manager: agoraManager, canvasId: .userId(uid))
                         .aspectRatio(contentMode: .fit).cornerRadius(10)
                 }
             }.padding(20)
