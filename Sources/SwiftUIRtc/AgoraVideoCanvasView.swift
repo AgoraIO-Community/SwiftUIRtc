@@ -251,6 +251,9 @@ public struct AgoraVideoCanvasView: ViewRepresentable {
         if canvas.setupMode != setupMode { canvas.setupMode = setupMode }
         if canvas.mirrorMode != mirrorMode { canvas.mirrorMode = mirrorMode }
         if canvas.enableAlphaMask != enableAlphaMask { canvas.enableAlphaMask = enableAlphaMask }
+        if let manager {
+            self.setUserId(to: self.canvasId, agoraEngine: manager.agoraEngine)
+        }
     }
 
     /// Updates the Canvas view.
