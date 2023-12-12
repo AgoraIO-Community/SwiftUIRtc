@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-#if os(iOS)
+#if os(iOS) || os(visionOS)
 public typealias ViewClassAlias = UIView
 public typealias ViewRepresentable = UIViewRepresentable
 #elseif os(macOS)
@@ -217,7 +217,7 @@ public struct AgoraVideoCanvasView: ViewRepresentable {
     public func makeNSView(context: Context) -> NSView {
         setupCanvasView()
     }
-    #elseif os(iOS)
+    #elseif os(iOS) || os(visionOS)
     /// Creates and configures a `UIView` for the view. This UIView will be the view the video is rendered onto.
     ///
     /// - Parameter context: The `UIViewRepresentable` context.
@@ -257,7 +257,7 @@ public struct AgoraVideoCanvasView: ViewRepresentable {
     }
 
     /// Updates the Canvas view.
-    #if os(iOS)
+    #if os(iOS) || os(visionOS)
     /// 🔄 Updates the `UIView` for the view.
     public func updateUIView(_ uiView: UIView, context: Context) {
         self.updateCanvasValues()
