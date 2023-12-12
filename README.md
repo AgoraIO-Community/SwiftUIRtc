@@ -1,6 +1,8 @@
 # SwiftUIRtc
 
 <p align="center">
+    <img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2FAgoraIO-Community%2FSwiftUIRtc%2Fbadge%3Ftype%3Dswift-versions" />
+    <img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2FAgoraIO-Community%2FSwiftUIRtc%2Fbadge%3Ftype%3Dplatforms" /><br/>
     <a href="https://agoraio-community.github.io/SwiftUIRtc/"><img src="https://github.com/AgoraIO-Community/SwiftUIRtc/actions/workflows/deploy_docs.yml/badge.svg"/></a>
     <img src="https://github.com/AgoraIO-Community/SwiftUIRtc/actions/workflows/swiftbuild.yml/badge.svg"/>
 </p>
