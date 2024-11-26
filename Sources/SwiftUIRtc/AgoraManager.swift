@@ -30,6 +30,9 @@ open class AgoraManager: NSObject, ObservableObject, AgoraRtcEngineDelegate {
 
     /// 🧍‍♂️ The set of all users in the channel.
     @Published public var allUsers: Set<UInt> = []
+    
+    /// 📹 The set of all users in the channel that have camera enabled.
+    @Published public var enabledVideos: Set<UInt> = []
 
     /// 🚀 Initializes and configures the Agora RTC Engine Kit.
     ///
@@ -139,5 +142,32 @@ open class AgoraManager: NSObject, ObservableObject, AgoraRtcEngineDelegate {
     /// This method removes the remote user from the `allUsers` set.
     open func rtcEngine(_ engine: AgoraRtcEngineKit, didOfflineOfUid uid: UInt, reason: AgoraUserOfflineReason) {
         self.allUsers.remove(uid)
+    }
+    
+    /// 📹The remote video state has change.
+    ///
+    /// - Parameters:
+    ///   - engine: The Agora RTC enging kit object.
+    ///   - uid: The ID of the user who left the channel.
+    ///   - state: The reason of the remote video state change: #AgoraVideoRemoteReason.
+    ///   - reason: The reason of the remote video state change: #AgoraVideoRemoteReason.
+    ///   - elapsed: The time elapsed (ms) from the local user calling `joinChannel` until this callback is triggered.
+    ///
+    /// This method adds or removes the remote user from `enabledVideos` set.
+    open func rtcEngine(_ engine: AgoraRtcEngineKit,
+                        remoteVideoStateChangedOfUid uid: UInt,
+                        state: AgoraVideoRemoteState,
+                        reason: AgoraVideoRemoteReason,
+                        elapsed: Int) {
+        switch state {
+        case .starting:
+            enabledVideos.insert(uid)
+            
+        case .stopped:
+            enabledVideos.remove(uid)
+            
+        default:
+            break
+        }
     }
 }
